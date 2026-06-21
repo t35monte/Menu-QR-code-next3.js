@@ -46,7 +46,7 @@ function Login() {
       }
 
       // Full navigation to ensure session cookies are recognized
-      window.location.href = redirect;
+      router.push(redirect);
     } catch (err: any) {
       setError('Ocorreu um erro inesperado: ' + err.message);
       setLoading(false);
