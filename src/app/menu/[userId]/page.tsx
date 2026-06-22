@@ -57,7 +57,14 @@ function gerarEstilos(config: RestauranteConfig) {
     btnGuardar: { backgroundColor: '#2ecc71', color: 'white', border: 'none', padding: '12px', borderRadius: '4px', fontWeight: 'bold' as const, cursor: 'pointer', marginTop: '10px' },
 
     // Conteúdo principal
-    conteudo: (adminVisivel: boolean) => ({ flex: 1, padding: '90px 20px 20px 20px', display: 'flex', flexDirection: 'column' as const, alignItems: 'center', marginLeft: adminVisivel ? '320px' : '0', transition: 'margin-left 0.3s' }),
+    conteudo: (adminVisivel: boolean) => ({
+      flex: 1,
+      padding: '90px 20px 20px 20px',
+      display: 'flex',
+      flexDirection: 'column' as const,
+      alignItems: 'center',
+      overflow: 'auto',
+    }),
     menuHeader: { textAlign: 'center' as const, marginBottom: '40px', maxWidth: '600px' },
     menuTitulo: { fontSize: '2.5rem', marginBottom: '10px', color: primary },
     menuSubtitulo: { color: '#666' },
@@ -319,7 +326,7 @@ export default function PublicMenu() {
 
 
   return (
-      <div style={{ display: 'flex', minHeight: '100vh' }}>
+      <div style={{ display: 'flex', minHeight: '100vh', width: '100%', backgroundColor: inputBg }}>
 
         {/* TOP BAR */}
         <div style={css.topBar}>
@@ -377,7 +384,7 @@ export default function PublicMenu() {
         </aside>
 
         {/* CONTEÚDO PRINCIPAL */}
-        <main style={{ ...css.pagina, ...css.conteudo(adminVisivel) }}>
+        <main style={css.conteudo(adminVisivel)}>
           <header style={css.menuHeader}>
             <h1 style={css.menuTitulo}>{inputNome || 'Meu Restaurante'}</h1>
             <p style={css.menuSubtitulo}>Faça o seu pedido diretamente pelo site!</p>
