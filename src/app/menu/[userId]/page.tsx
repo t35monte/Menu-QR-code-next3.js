@@ -170,12 +170,11 @@ export default function PublicMenu() {
     async function inicializar() {
       setLoading(true);
       try {
-        const [dishData, configData] = await Promise.all([
-          getDishes(userId),
+        const [dishResult, configData] = await Promise.all([
+          supabase.from('dishes').select('*').eq('user_id', userId),
           supabase.from('restaurante_config').select('*').eq('user_id', userId).maybeSingle(),
         ]);
-
-        setDishes(dishData);
+        if (dishResult.data) setDishes(dishResult.data);
 
         if (configData.data) {
           const c = configData.data;
