@@ -24,7 +24,7 @@ export default function QRCodeGenerator() {
   // Set default URL dynamically when user is loaded
   useEffect(() => {
     if (user && typeof window !== 'undefined') {
-      const defaultUrl = `${window.location.origin}/menu/${user.id}`;
+      const defaultUrl = `${window.location.origin}/menu/public/${user.id}`;
       setQrUrl(defaultUrl);
     }
   }, [user]);
@@ -186,7 +186,7 @@ export default function QRCodeGenerator() {
 
   const handleTableDownload = (tableName: string, suffix: string) => {
     if (typeof window === 'undefined' || !user) return;
-    const tableUrl = `${window.location.origin}/menu/${user.id}?table=${suffix}`;
+    const tableUrl = `${window.location.origin}/menu/public/${user.id}?table=${suffix}`;
     
     const tempCanvas = document.createElement('canvas');
     QRCode.toCanvas(
