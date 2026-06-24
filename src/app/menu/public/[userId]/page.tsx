@@ -174,11 +174,6 @@ export default function MenuPublico() {
             <header style={css.header}>
                 <h1 style={css.headerTitulo}>{config.nome_restaurante || 'Menu Digital'}</h1>
                 <p style={css.headerSub}>Faça o seu pedido diretamente pelo site!</p>
-                {numeromesa && (
-                    <p style={{ color: 'white', fontWeight: 'bold', marginTop: '8px', fontSize: '1.1rem' }}>
-                        🪑 {numeromesa.replace(/-/g, ' ').toUpperCase()}
-                    </p>
-                )}
             </header>
 
             {/* PRATOS */}
