@@ -157,8 +157,8 @@ export default function OrdersManagement() {
                 <div className="order-card-header">
                   <div className="card-meta">
                     <span className="order-id">Order #{order.id.toString().slice(-5).toUpperCase()}</span>
-                    {order.table_number && (
-                      <span className="table-tag">Table {order.table_number}</span>
+                    {order.numero_mesa && (
+                      <span className="table-tag">Table {order.numero_mesa}</span>
                     )}
                   </div>
                   <div className="card-right">
