@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { getDishes } from '@/lib/database';
 import { Dish } from '@/types';
+import { useParams, useSearchParams } from 'next/navigation';
 
 // =================================================================
 // TIPOS
@@ -80,6 +80,8 @@ function gerarEstilos(config: RestauranteConfig) {
 export default function MenuPublico() {
     const params = useParams();
     const userId = params?.userId as string;
+    const searchParams = useSearchParams();
+    const numeromesa = searchParams.get('table');
 
     const [dishes, setDishes] = useState<Dish[]>([]);
     const [config, setConfig] = useState<RestauranteConfig>({ nome_restaurante: '', bg_color: '#f9f9f9', primary_color: '#2c3e50', accent_color: '#2ecc71', currency: '€', layout_style: 'modern' });
@@ -135,6 +137,7 @@ export default function MenuPublico() {
             user_id: userId,
             itens: JSON.stringify(itensFlatten),
             total: totalPreco,
+            table_number: numeromesa || null,  // ← adiciona esta linha
         });
 
         setEnviando(false);
@@ -171,6 +174,11 @@ export default function MenuPublico() {
             <header style={css.header}>
                 <h1 style={css.headerTitulo}>{config.nome_restaurante || 'Menu Digital'}</h1>
                 <p style={css.headerSub}>Faça o seu pedido diretamente pelo site!</p>
+                {numeromesa && (
+                    <p style={{ color: 'white', fontWeight: 'bold', marginTop: '8px', fontSize: '1.1rem' }}>
+                        🪑 {numeromesa.replace(/-/g, ' ').toUpperCase()}
+                    </p>
+                )}
             </header>
 
             {/* PRATOS */}

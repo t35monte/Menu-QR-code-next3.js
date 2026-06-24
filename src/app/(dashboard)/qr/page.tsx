@@ -110,6 +110,27 @@ export default function QRCodeGenerator() {
     win.document.close();
   };
 
+  const tables = [
+    { name: 'Mesa 1', suffix: 'mesa1' },
+    { name: 'Mesa 2', suffix: 'mesa2' },
+    { name: 'Mesa 3', suffix: 'mesa3' },
+    { name: 'Esplanada', suffix: 'esplanada' },
+    { name: 'Takeaway', suffix: 'takeaway' },
+  ];
+
+  const downloadTableQR = (tableName: string, suffix: string) => {
+    if (!user) return;
+    const tableUrl = `${window.location.origin}/menu/public/${user.id}?table=${suffix}`;
+    const tempCanvas = document.createElement('canvas');
+    QRCode.toCanvas(tempCanvas, tableUrl, { width: 300, margin: 2, color: { dark: colorFg, light: colorBg } }, (err) => {
+      if (err) { alert('Erro ao gerar QR Code.'); return; }
+      const link = document.createElement('a');
+      link.download = `${tableName}.png`;
+      link.href = tempCanvas.toDataURL('image/png');
+      link.click();
+    });
+  };
+
   return (
       <div>
         <h1 className="qr-title">QR Code Generator</h1>
@@ -188,7 +209,22 @@ export default function QRCodeGenerator() {
               )}
             </div>
           </div>
-
+          {/* Mesas */}
+          <div className="qr-card" style={{ gridColumn: '1 / -1' }}>
+            <h3><i className="fas fa-table"></i> QR Codes por Mesa</h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '12px' }}>
+              {tables.map((table) => (
+                  <button
+                      key={table.suffix}
+                      onClick={() => downloadTableQR(table.name, table.suffix)}
+                      style={{ padding: '10px 20px', borderRadius: '8px', border: '1px solid #ddd', background: '#f5f2e8', cursor: 'pointer', fontWeight: 600 }}
+                  >
+                    <i className="fas fa-download" style={{ marginRight: '8px' }}></i>
+                    {table.name}
+                  </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
   );
