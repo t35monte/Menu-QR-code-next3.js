@@ -137,7 +137,7 @@ export default function MenuPublico() {
             user_id: userId,
             itens: JSON.stringify(itensFlatten),
             total: totalPreco,
-            table_number: numeromesa || null,  // ← adiciona esta linha
+            numero_mesa: numeromesa || null,  // ← adiciona esta linha
         });
 
         setEnviando(false);

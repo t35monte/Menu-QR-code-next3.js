@@ -23,7 +23,7 @@ export interface Order {
   id: number;
   status: OrderStatus | null;
   total: number;
-  table_number: string | null;
+  numero_mesa: string | null;
   itens: OrderItem[];
   user_id: string;
   created_at: string;
